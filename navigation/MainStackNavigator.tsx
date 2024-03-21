@@ -12,6 +12,9 @@ export default function MainStackNavigator() {
           backgroundColor: "#C56C39",
         },
         headerTintColor: "white",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
         headerShadowVisible: false,
       }}
     >
@@ -23,7 +26,9 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="Park Detail"
         component={ParkDetailScreen}
-        options={{ title: "Park Detail" }}
+        options={({ route }) => ({
+          title: route.params ? route.params.name : "Park Detail",
+        })}
       />
     </Stack.Navigator>
   );

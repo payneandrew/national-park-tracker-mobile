@@ -49,11 +49,12 @@ export default function StatesScreen({ navigation }) {
               <Pressable
                 key={park.id}
                 style={styles.button}
-                onPress={() =>
+                onPress={() => {
                   navigation.navigate("Park Detail", {
                     parkCode: park.parkCode,
-                  })
-                }
+                    name: park.fullName,
+                  });
+                }}
               >
                 <Text style={styles.buttonText}>{park.fullName}</Text>
               </Pressable>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
-    marginBottom: 10,
+    marginVertical: 5,
     marginHorizontal: 20,
     elevation: 3,
   },
