@@ -13,7 +13,13 @@ import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
 import { getVisitedParks } from "../utils/VisitedParks";
 
-export default function VisitedParksScreen({ navigation }) {
+interface VisitedParksScreenProps {
+  navigation: any;
+}
+
+export default function VisitedParksScreen({
+  navigation,
+}: VisitedParksScreenProps) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
@@ -65,6 +71,7 @@ export default function VisitedParksScreen({ navigation }) {
               onPress={() =>
                 navigation.navigate("Park Detail", {
                   parkCode: park.parkCode,
+                  name: park.name,
                 })
               }
             >

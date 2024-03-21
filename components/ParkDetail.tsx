@@ -14,7 +14,11 @@ import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
 import { addToVisitedParks } from "../utils/VisitedParks";
 
-export default function ParkDetailScreen({ route }) {
+interface ParkDetailScreenProps {
+  route: any;
+}
+
+export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
   const { parkCode } = route.params;
 
   const [park, setPark] = useState<ParkDetail>();
@@ -84,15 +88,6 @@ export default function ParkDetailScreen({ route }) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  fontSize: 24,
-                  fontWeight: "bold",
-                  color: colors.copperBrown,
-                }}
-              >
-                {park && park.fullName}
-              </Text>
               <Button title="Speak" onPress={speak} />
               <Button
                 title="Add to Visited Parks"

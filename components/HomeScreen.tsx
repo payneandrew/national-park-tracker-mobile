@@ -11,7 +11,11 @@ import {
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
 
-export default function StatesScreen({ navigation }) {
+interface StatesScreenProps {
+  navigation: any;
+}
+
+export default function StatesScreen({ navigation }: StatesScreenProps) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +56,7 @@ export default function StatesScreen({ navigation }) {
                 onPress={() => {
                   navigation.navigate("Park Detail", {
                     parkCode: park.parkCode,
-                    name: park.fullName,
+                    name: park.name,
                   });
                 }}
               >
