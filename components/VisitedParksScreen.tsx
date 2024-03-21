@@ -11,7 +11,7 @@ import {
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
 
-export default function HomeScreen({ navigation }) {
+export default function VisitedParksScreen({ navigation }) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
@@ -36,32 +36,30 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   return (
-    <>
-      <ScrollView>
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={colors.copperBrown} />
-          </View>
-        ) : (
-          parks &&
-          parks.map((park) => {
-            return (
-              <Pressable
-                key={park.id}
-                style={styles.button}
-                onPress={() =>
-                  navigation.navigate("Park Detail", {
-                    parkCode: park.parkCode,
-                  })
-                }
-              >
-                <Text style={styles.buttonText}>{park.fullName}</Text>
-              </Pressable>
-            );
-          })
-        )}
-      </ScrollView>
-    </>
+    <ScrollView>
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={colors.copperBrown} />
+        </View>
+      ) : (
+        parks &&
+        parks.map((park) => {
+          return (
+            <Pressable
+              key={park.id}
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate("Park Detail", {
+                  parkCode: park.parkCode,
+                })
+              }
+            >
+              <Text style={styles.buttonText}>{park.fullName}</Text>
+            </Pressable>
+          );
+        })
+      )}
+    </ScrollView>
   );
 }
 
