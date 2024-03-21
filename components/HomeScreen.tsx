@@ -11,7 +11,7 @@ import {
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
 
-export default function HomeScreen({ navigation }) {
+export default function StatesScreen({ navigation }) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 

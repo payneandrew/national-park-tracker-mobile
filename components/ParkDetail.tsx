@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
+import { addToVisitedParks } from "../utils/VisitedParks";
 
 export default function ParkDetailScreen({ route }) {
   const { parkCode } = route.params;
@@ -93,6 +94,13 @@ export default function ParkDetailScreen({ route }) {
                 {park && park.fullName}
               </Text>
               <Button title="Speak" onPress={speak} />
+              <Button
+                title="Add to Visited Parks"
+                onPress={
+                  park ? () => addToVisitedParks(park.parkCode) : () => {}
+                }
+                // disabled={addedToVisited} // Disable the button if the park has already been added to visited parks
+              />
             </View>
           </View>
           <Text

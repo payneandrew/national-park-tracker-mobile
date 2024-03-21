@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -10,30 +11,43 @@ import {
 } from "react-native";
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
+import { getVisitedParks } from "../utils/VisitedParks";
 
 export default function VisitedParksScreen({ navigation }) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
-  const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
-
-  const getParks = async () => {
+  const fetchVisitedParksData = async () => {
     try {
-      const response = await fetch(
-        `https://developer.nps.gov/api/v1/parks?limit=500&api_key=${apiKey}`
-      );
-      const json = await response.json();
-      setParks(json.data);
+      const visitedParks = await getVisitedParks();
+
+      const shouldFetchData = visitedParks && visitedParks.length !== 0;
+
+      if (shouldFetchData) {
+        const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
+        const response = await fetch(
+          `https://developer.nps.gov/api/v1/parks?api_key=${apiKey}&parkCode=${visitedParks.join(
+            ","
+          )}`
+        );
+        const json = await response.json();
+        setParks(json.data);
+      } else {
+        setParks([]);
+      }
+      setLoading(false);
     } catch (error) {
       console.error(error);
-    } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getParks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(true);
+      fetchVisitedParksData();
+    }, [])
+  );
 
   return (
     <ScrollView>
