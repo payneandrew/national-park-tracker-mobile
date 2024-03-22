@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
-import { getVisitedParks } from "../utils/VisitedParks";
+import { getVisitedParks } from "../utils/GetVisitedParks";
 
 interface VisitedParksScreenProps {
   navigation: any;
@@ -56,7 +56,7 @@ export default function VisitedParksScreen({
   );
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       {loading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={colors.copperBrown} />
@@ -87,6 +87,7 @@ export default function VisitedParksScreen({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
   },
   loadingContainer: {
     height: Dimensions.get("window").height,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
-    marginBottom: 10,
+    marginVertical: 5,
     marginHorizontal: 20,
     elevation: 3,
   },

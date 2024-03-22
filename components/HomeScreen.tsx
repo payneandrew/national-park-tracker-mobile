@@ -40,39 +40,38 @@ export default function StatesScreen({ navigation }: StatesScreenProps) {
   }, []);
 
   return (
-    <>
-      <ScrollView>
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={colors.copperBrown} />
-          </View>
-        ) : (
-          parks &&
-          parks.map((park) => {
-            return (
-              <Pressable
-                key={park.id}
-                style={styles.button}
-                onPress={() => {
-                  navigation.navigate("Park Detail", {
-                    parkCode: park.parkCode,
-                    name: park.name,
-                  });
-                }}
-              >
-                <Text style={styles.buttonText}>{park.fullName}</Text>
-              </Pressable>
-            );
-          })
-        )}
-      </ScrollView>
-    </>
+    <ScrollView style={styles.container}>
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={colors.copperBrown} />
+        </View>
+      ) : (
+        parks &&
+        parks.map((park) => {
+          return (
+            <Pressable
+              key={park.id}
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Park Detail", {
+                  parkCode: park.parkCode,
+                  name: park.name,
+                });
+              }}
+            >
+              <Text style={styles.buttonText}>{park.fullName}</Text>
+            </Pressable>
+          );
+        })
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
   },
   loadingContainer: {
     height: Dimensions.get("window").height,

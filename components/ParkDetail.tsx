@@ -10,9 +10,9 @@ import {
   Text,
   View,
 } from "react-native";
+import useVisitedParks from "../hooks/UseVisitedParks";
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
-import { addToVisitedParks } from "../utils/VisitedParks";
 
 interface ParkDetailScreenProps {
   route: any;
@@ -23,6 +23,8 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
 
   const [park, setPark] = useState<ParkDetail>();
   const [loading, setLoading] = useState(true);
+
+  const { toggleVisited, isParkVisited } = useVisitedParks();
 
   //TODO remove api key
   const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
@@ -90,11 +92,12 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
             <View style={{ flex: 1 }}>
               <Button title="Speak" onPress={speak} />
               <Button
-                title="Add to Visited Parks"
-                onPress={
-                  park ? () => addToVisitedParks(park.parkCode) : () => {}
+                title={
+                  isParkVisited(park?.parkCode || "")
+                    ? "Remove from visited parks"
+                    : "Add to visited parks"
                 }
-                // disabled={addedToVisited} // Disable the button if the park has already been added to visited parks
+                onPress={park ? () => toggleVisited(park.parkCode) : () => {}}
               />
             </View>
           </View>
