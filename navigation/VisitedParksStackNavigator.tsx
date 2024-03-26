@@ -19,7 +19,7 @@ export default function VisitedParksStackNavigator() {
       }}
     >
       <Stack.Screen
-        name="Visited Parks"
+        name="Visited Parks Screen"
         component={VisitedParksScreen}
         options={{ title: "Visited Parks" }}
       />

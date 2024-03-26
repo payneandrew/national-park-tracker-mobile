@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Toast from "react-native-root-toast";
 import useVisitedParks from "../hooks/UseVisitedParks";
 import { colors } from "../theme";
 import { ParkDetail } from "../types/schemas";
@@ -78,6 +79,21 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
     Speech.speak(allText);
   };
 
+  const handleToggleVisited = async () => {
+    if (park) {
+      await toggleVisited(park.parkCode);
+      const message = isParkVisited(park.parkCode)
+        ? "Park removed from visited parks"
+        : "Park added to visited parks";
+      Toast.show(message, {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        animation: true,
+        shadow: true,
+      });
+    }
+  };
+
   return (
     <ScrollView>
       {loading ? (
@@ -97,7 +113,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
                     ? "Remove from visited parks"
                     : "Add to visited parks"
                 }
-                onPress={park ? () => toggleVisited(park.parkCode) : () => {}}
+                onPress={handleToggleVisited}
               />
             </View>
           </View>
