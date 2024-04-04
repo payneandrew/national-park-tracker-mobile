@@ -19,12 +19,10 @@ export default function HomeScreen({ navigation }: StatesScreenProps) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
-  const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
-
   const getParks = async () => {
     try {
       const response = await fetch(
-        `https://developer.nps.gov/api/v1/parks?limit=500&api_key=${apiKey}`
+        `https://developer.nps.gov/api/v1/parks?limit=500&api_key=${process.env.EXPO_PUBLIC_NPS_API_KEY}`
       );
       const json = await response.json();
       setParks(json.data);

@@ -30,11 +30,10 @@ export default function VisitedParksScreen({
       const shouldFetchData = visitedParks && visitedParks.length !== 0;
 
       if (shouldFetchData) {
-        const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
         const response = await fetch(
-          `https://developer.nps.gov/api/v1/parks?api_key=${apiKey}&parkCode=${visitedParks.join(
-            ","
-          )}`
+          `https://developer.nps.gov/api/v1/parks?api_key=${
+            process.env.EXPO_PUBLIC_NPS_API_KEY
+          }&parkCode=${visitedParks.join(",")}`
         );
         const json = await response.json();
         setParks(json.data);

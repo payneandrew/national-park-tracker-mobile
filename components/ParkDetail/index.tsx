@@ -27,13 +27,10 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
 
   const { toggleVisited, isParkVisited } = useVisitedParks();
 
-  //TODO remove api key
-  const apiKey = "FedT7DCR1sq9g1l5ZMGdjcikT2GcbXOjdrhehvKj";
-
   const getPark = async () => {
     try {
       const response = await fetch(
-        `https://developer.nps.gov/api/v1/parks?limit=500&api_key=${apiKey}&parkCode=${parkCode}`
+        `https://developer.nps.gov/api/v1/parks?limit=500&api_key=${process.env.EXPO_PUBLIC_NPS_API_KEY}&parkCode=${parkCode}`
       );
       const json = await response.json();
       setPark(json.data[0]);

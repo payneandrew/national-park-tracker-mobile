@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react-native";
+import { render, waitFor } from "@testing-library/react-native";
 import HomeScreen from ".";
 
 describe("<StatesScreen />", () => {
@@ -11,10 +11,15 @@ describe("<StatesScreen />", () => {
   });
 
   it("renders park buttons after loading", async () => {
-    const { getByText } = render(
+    const { getByText, getByTestId } = render(
       <HomeScreen navigation={{ navigate: jest.fn() }} />
     );
-    const parkButton = getByText("Test Park");
+    const loadingIndicator = getByTestId("loading-indicator");
+    await waitFor(() => {
+      // Wait for the element to disappear
+      expect(loadingIndicator).toBeFalsy();
+    });
+    const parkButton = getByText("Arches National Park");
     expect(parkButton).toBeDefined();
   });
 });
