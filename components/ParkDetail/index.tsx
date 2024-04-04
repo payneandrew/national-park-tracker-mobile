@@ -11,9 +11,9 @@ import {
   View,
 } from "react-native";
 import Toast from "react-native-root-toast";
-import useVisitedParks from "../hooks/UseVisitedParks";
-import { colors } from "../theme";
-import { ParkDetail } from "../types/schemas";
+import useVisitedParks from "../../hooks/UseVisitedParks";
+import { colors } from "../../theme";
+import { ParkDetail } from "../../types/schemas";
 
 interface ParkDetailScreenProps {
   route: any;

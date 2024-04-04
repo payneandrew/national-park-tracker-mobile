@@ -9,9 +9,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { colors } from "../theme";
-import { ParkDetail } from "../types/schemas";
-import { getVisitedParks } from "../utils/GetVisitedParks";
+import { colors } from "../../theme";
+import { ParkDetail } from "../../types/schemas";
+import { getVisitedParks } from "../../utils/GetVisitedParks";
 
 interface VisitedParksScreenProps {
   navigation: any;

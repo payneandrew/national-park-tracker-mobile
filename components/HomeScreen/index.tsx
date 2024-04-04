@@ -8,14 +8,14 @@ import {
   Text,
   View,
 } from "react-native";
-import { colors } from "../theme";
-import { ParkDetail } from "../types/schemas";
+import { colors } from "../../theme";
+import { ParkDetail } from "../../types/schemas";
 
 interface StatesScreenProps {
   navigation: any;
 }
 
-export default function StatesScreen({ navigation }: StatesScreenProps) {
+export default function HomeScreen({ navigation }: StatesScreenProps) {
   const [parks, setParks] = useState<ParkDetail[]>();
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +42,7 @@ export default function StatesScreen({ navigation }: StatesScreenProps) {
   return (
     <ScrollView style={styles.container}>
       {loading ? (
-        <View style={styles.loadingContainer}>
+        <View style={styles.loadingContainer} testID="loading-indicator">
           <ActivityIndicator size="large" color={colors.copperBrown} />
         </View>
       ) : (

@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ParkDetailScreen from "../components/ParkDetail";
-import VisitedParksScreen from "../components/VisitedParksScreen";
+import StatesScreen from "../../components/HomeScreen";
+import ParkDetailScreen from "../../components/ParkDetail";
 
 const Stack = createNativeStackNavigator();
 
-export default function VisitedParksStackNavigator() {
+export default function MainStackNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -19,9 +19,9 @@ export default function VisitedParksStackNavigator() {
       }}
     >
       <Stack.Screen
-        name="Visited Parks Screen"
-        component={VisitedParksScreen}
-        options={{ title: "Visited Parks" }}
+        name="States"
+        component={StatesScreen}
+        options={{ title: "States" }}
       />
       <Stack.Screen
         name="Park Detail"

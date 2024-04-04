@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import MainStackNavigator from "./MainStackNavigator";
-import VisitedParksStackNavigator from "./VisitedParksStackNavigator";
+import MainStackNavigator from "../MainStackNavigator";
+import VisitedParksStackNavigator from "../VisitedParksStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
