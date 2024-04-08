@@ -50,7 +50,9 @@ export default function StateDetailScreen({
       ) : (
         parks &&
         parks.map((park) => {
-          return <ImageButton park={park} navigation={navigation} />;
+          return (
+            <ImageButton key={park.id} park={park} navigation={navigation} />
+          );
         })
       )}
     </ScrollView>

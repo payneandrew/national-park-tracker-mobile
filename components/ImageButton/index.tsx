@@ -21,7 +21,6 @@ export default function ImageButton({ navigation, park }: ImageButtonProps) {
       }}
     >
       <Image
-        key={park.id}
         source={{ uri: park.images ? park.images[0].url : "" }}
         style={styles.imageBackground}
         placeholder={blurhash}
