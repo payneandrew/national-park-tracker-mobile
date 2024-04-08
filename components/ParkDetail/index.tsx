@@ -86,7 +86,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
         : "Park added to visited parks";
       Toast.show(message, {
         duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
+        position: Toast.positions.TOP,
         animation: true,
         shadow: true,
       });
