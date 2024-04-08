@@ -1,3 +1,4 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import {
@@ -24,6 +25,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
 
   const [park, setPark] = useState<ParkDetail>();
   const [loading, setLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(true);
 
   const { toggleVisited, isParkVisited } = useVisitedParks();
 
@@ -99,18 +101,35 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
         </View>
       ) : (
         <View style={{ flex: 1, margin: 10 }}>
+          <View style={styles.imageContainer}>
+            {park && park.images && (
+              <Image
+                source={{ uri: park.images[0].url }}
+                style={styles.image}
+                onLoadStart={() => setImageLoading(true)}
+                onLoadEnd={() => setImageLoading(false)}
+              />
+            )}
+            {imageLoading && (
+              <View style={styles.imageLoadingOverlay}>
+                <ActivityIndicator size="large" color={colors.copperBrown} />
+              </View>
+            )}
+          </View>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View style={{ flex: 1 }}>
-              <Button title="Speak" onPress={speak} />
-              <Button
-                title={
-                  isParkVisited(park?.parkCode || "")
-                    ? "Remove from visited parks"
-                    : "Add to visited parks"
+            <Button title="Speak" onPress={speak} />
+            <View style={styles.buttonContainer}>
+              <Ionicons.Button
+                name={
+                  isParkVisited(park?.parkCode || "") ? "star" : "star-outline"
                 }
                 onPress={handleToggleVisited}
+                iconStyle={{
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
               />
             </View>
           </View>
@@ -237,13 +256,15 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
               <View style={styles.imageContainer}>
                 {park &&
                   park.images &&
-                  park.images.map((image, index) => (
-                    <Image
-                      key={index}
-                      source={{ uri: image.url }}
-                      style={styles.image}
-                    />
-                  ))}
+                  park.images
+                    .slice(1)
+                    .map((image, index) => (
+                      <Image
+                        key={index}
+                        source={{ uri: image.url }}
+                        style={styles.image}
+                      />
+                    ))}
               </View>
             </>
           )}
@@ -254,10 +275,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10,
-  },
+  buttonContainer: {},
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
@@ -274,5 +292,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 20,
     height: 200,
     margin: 5,
+  },
+  imageLoadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
