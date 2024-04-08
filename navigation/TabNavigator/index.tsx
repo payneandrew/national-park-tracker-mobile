@@ -19,7 +19,7 @@ export default function TabNavigator() {
           } else if (route.name === "Visited Parks") {
             iconName = focused ? "star" : "star-outline";
           }
-
+          //@ts-ignore
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: colors.copperBrown,

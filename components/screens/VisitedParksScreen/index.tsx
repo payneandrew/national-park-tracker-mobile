@@ -3,15 +3,14 @@ import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
-  Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
-import { colors } from "../../theme";
-import { ParkDetail } from "../../types/schemas";
-import { getVisitedParks } from "../../utils/GetVisitedParks";
+import { colors } from "../../../theme";
+import { ParkDetail } from "../../../types/schemas";
+import { getVisitedParks } from "../../../utils/GetVisitedParks";
+import ImageButton from "../../ImageButton";
 
 interface VisitedParksScreenProps {
   navigation: any;
@@ -63,20 +62,7 @@ export default function VisitedParksScreen({
       ) : (
         parks &&
         parks.map((park) => {
-          return (
-            <Pressable
-              key={park.id}
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("Park Detail", {
-                  parkCode: park.parkCode,
-                  name: park.name,
-                })
-              }
-            >
-              <Text style={styles.buttonText}>{park.fullName}</Text>
-            </Pressable>
-          );
+          return <ImageButton park={park} navigation={navigation} />;
         })
       )}
     </ScrollView>
@@ -92,20 +78,5 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
     justifyContent: "center",
     alignItems: "center",
-  },
-  button: {
-    backgroundColor: colors.blackLeatherJacket,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginVertical: 5,
-    marginHorizontal: 20,
-    elevation: 3,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
   },
 });

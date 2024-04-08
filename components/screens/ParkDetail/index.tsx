@@ -1,31 +1,33 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image } from "expo-image";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Button,
   Dimensions,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 import Toast from "react-native-root-toast";
-import useVisitedParks from "../../hooks/UseVisitedParks";
-import { colors } from "../../theme";
-import { ParkDetail } from "../../types/schemas";
+import useVisitedParks from "../../../hooks/UseVisitedParks";
+import { colors } from "../../../theme";
+import { ParkDetail } from "../../../types/schemas";
 
 interface ParkDetailScreenProps {
   route: any;
 }
+
+const blurhash =
+  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
   const { parkCode } = route.params;
 
   const [park, setPark] = useState<ParkDetail>();
   const [loading, setLoading] = useState(true);
-  const [imageLoading, setImageLoading] = useState(true);
 
   const { toggleVisited, isParkVisited } = useVisitedParks();
 
@@ -104,16 +106,12 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
           <View style={styles.imageContainer}>
             {park && park.images && (
               <Image
-                source={{ uri: park.images[0].url }}
+                source={{ uri: park.images ? park.images[0].url : "" }}
                 style={styles.image}
-                onLoadStart={() => setImageLoading(true)}
-                onLoadEnd={() => setImageLoading(false)}
+                placeholder={blurhash}
+                transition={200}
+                contentFit="cover"
               />
-            )}
-            {imageLoading && (
-              <View style={styles.imageLoadingOverlay}>
-                <ActivityIndicator size="large" color={colors.copperBrown} />
-              </View>
             )}
           </View>
           <View
@@ -263,6 +261,9 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
                         key={index}
                         source={{ uri: image.url }}
                         style={styles.image}
+                        placeholder={blurhash}
+                        transition={200}
+                        contentFit="cover"
                       />
                     ))}
               </View>
@@ -292,10 +293,5 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 20,
     height: 200,
     margin: 5,
-  },
-  imageLoadingOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
