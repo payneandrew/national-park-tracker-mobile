@@ -1,4 +1,4 @@
-interface Image {
+export interface ParkImage {
   credit: string;
   altText: string;
   title: string;
@@ -31,7 +31,7 @@ export interface ParkDetail {
   entrancePasses: unknown[];
   parkCode: string;
   designation: string;
-  images?: Image[];
+  images?: ParkImage[];
   fullName: string;
   latLong: string;
   id: string;

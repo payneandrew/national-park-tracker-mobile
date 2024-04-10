@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Image } from "expo-image";
 import * as Speech from "expo-speech";
 import { useEffect, useState } from "react";
 import {
@@ -15,13 +14,11 @@ import Toast from "react-native-root-toast";
 import useVisitedParks from "../../../hooks/UseVisitedParks";
 import { colors } from "../../../theme";
 import { ParkDetail } from "../../../types/schemas";
+import ImageContainer from "../../ImageContainer";
 
 interface ParkDetailScreenProps {
   route: any;
 }
-
-const blurhash =
-  "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
   const { parkCode } = route.params;
@@ -104,16 +101,8 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
       ) : (
         <View style={{ flex: 1, margin: 10 }}>
           <Text style={styles.header}>{park?.fullName}</Text>
-          <View style={styles.imageContainer}>
-            {park && park.images && (
-              <Image
-                source={{ uri: park.images ? park.images[0].url : "" }}
-                style={styles.image}
-                placeholder={blurhash}
-                transition={200}
-                contentFit="cover"
-              />
-            )}
+          <View style={{ marginVertical: 10 }}>
+            {park && park.images && <ImageContainer image={park.images[0]} />}
           </View>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -211,14 +200,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
                   park.images
                     .slice(1)
                     .map((image, index) => (
-                      <Image
-                        key={index}
-                        source={{ uri: image.url }}
-                        style={styles.image}
-                        placeholder={blurhash}
-                        transition={200}
-                        contentFit="cover"
-                      />
+                      <ImageContainer key={index} image={image} />
                     ))}
               </View>
             </>
@@ -250,14 +232,6 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height,
   },
   imageContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    padding: 5,
-  },
-  image: {
-    width: Dimensions.get("window").width - 20,
-    height: 200,
-    margin: 5,
+    gap: 10,
   },
 });
