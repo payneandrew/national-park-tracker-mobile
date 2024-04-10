@@ -5,6 +5,7 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
+  Text,
   View,
 } from "react-native";
 import { colors } from "../../../theme";
@@ -59,13 +60,14 @@ export default function VisitedParksScreen({
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={colors.copperBrown} />
         </View>
+      ) : parks && parks.length ? (
+        parks.map((park) => (
+          <ImageButton key={park.id} park={park} navigation={navigation} />
+        ))
       ) : (
-        parks &&
-        parks.map((park) => {
-          return (
-            <ImageButton key={park.id} park={park} navigation={navigation} />
-          );
-        })
+        <View style={styles.emptyState}>
+          <Text>No visited parks yet!</Text>
+        </View>
       )}
     </ScrollView>
   );
@@ -78,6 +80,10 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     height: Dimensions.get("window").height,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyState: {
     justifyContent: "center",
     alignItems: "center",
   },

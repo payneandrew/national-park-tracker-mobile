@@ -16,7 +16,6 @@ export default function ImageButton({ navigation, park }: ImageButtonProps) {
 
   return (
     <Pressable
-      key={park.id}
       style={styles.button}
       onPress={() => {
         navigation.navigate("Park Detail", {

@@ -233,5 +233,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     gap: 10,
+    marginTop: 10,
   },
 });
