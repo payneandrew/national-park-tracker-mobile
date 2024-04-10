@@ -103,6 +103,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
         </View>
       ) : (
         <View style={{ flex: 1, margin: 10 }}>
+          <Text style={styles.header}>{park?.fullName}</Text>
           <View style={styles.imageContainer}>
             {park && park.images && (
               <Image
@@ -118,72 +119,34 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Button title="Speak" onPress={speak} />
-            <View style={styles.buttonContainer}>
-              <Ionicons.Button
-                name={
-                  isParkVisited(park?.parkCode || "") ? "star" : "star-outline"
-                }
-                onPress={handleToggleVisited}
-                iconStyle={{
-                  justifyContent: "center",
-                  alignContent: "center",
-                }}
-              />
-            </View>
+            <Ionicons.Button
+              name={
+                isParkVisited(park?.parkCode || "") ? "star" : "star-outline"
+              }
+              onPress={handleToggleVisited}
+              iconStyle={{
+                justifyContent: "center",
+                alignContent: "center",
+              }}
+            />
           </View>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: colors.copperBrown,
-              marginTop: 10,
-            }}
-          >
-            Description
-          </Text>
+          <Text style={styles.header}>Description</Text>
           <Text style={{ fontSize: 16, color: "#666" }}>
             {park && park.description}
           </Text>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: colors.copperBrown,
-              marginTop: 10,
-            }}
-          >
-            Weather Information
-          </Text>
+          <Text style={styles.header}>Weather Information</Text>
           <Text style={{ fontSize: 16, color: "#666" }}>
             {park && park.weatherInfo}
           </Text>
           {park && park.activities && park.activities.length > 0 && (
             <>
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  color: colors.copperBrown,
-                  marginTop: 10,
-                }}
-              >
-                Activities
-              </Text>
+              <Text style={styles.header}>Activities</Text>
               <View
                 style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 5 }}
               >
                 {park &&
                   park.activities.map((activity, index) => (
-                    <View
-                      key={index}
-                      style={{
-                        backgroundColor: "#000",
-                        paddingVertical: 5,
-                        paddingHorizontal: 10,
-                        borderRadius: 20,
-                        margin: 5,
-                      }}
-                    >
+                    <View key={index} style={styles.activities}>
                       <Text style={{ color: "#fff" }}>{activity.name}</Text>
                     </View>
                   ))}
@@ -226,16 +189,7 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
                 ))}
             </>
           )}
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: colors.copperBrown,
-              marginTop: 10,
-            }}
-          >
-            Directions
-          </Text>
+          <Text style={styles.header}>Directions</Text>
           <Text style={{ fontSize: 16, color: "#666" }}>
             {park && park.directionsInfo}
           </Text>
@@ -276,7 +230,19 @@ export default function ParkDetailScreen({ route }: ParkDetailScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {},
+  header: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: colors.copperBrown,
+    marginTop: 10,
+  },
+  activities: {
+    backgroundColor: "#000",
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    margin: 5,
+  },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
