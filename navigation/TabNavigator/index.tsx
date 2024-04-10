@@ -1,5 +1,6 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TripPlannerScreen from "../../components/screens/TripPlanner";
 import { colors } from "../../theme";
 import MainStackNavigator from "../MainStackNavigator";
 import VisitedParksStackNavigator from "../VisitedParksStackNavigator";
@@ -18,6 +19,8 @@ export default function TabNavigator() {
             iconName = focused ? "md-home" : "md-home-outline";
           } else if (route.name === "Visited Parks") {
             iconName = focused ? "star" : "star-outline";
+          } else if (route.name === "Trip Planner") {
+            iconName = focused ? "map" : "map-outline";
           }
           //@ts-ignore
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -28,6 +31,7 @@ export default function TabNavigator() {
     >
       <Tab.Screen name="Home" component={MainStackNavigator} />
       <Tab.Screen name="Visited Parks" component={VisitedParksStackNavigator} />
+      <Tab.Screen name="Trip Planner" component={TripPlannerScreen} />
     </Tab.Navigator>
   );
 }
